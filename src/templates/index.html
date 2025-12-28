@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>授信报告生成器</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 0; background: #f6f8fb; color: #222; }
+    header { background: #1f3c88; color: #fff; padding: 20px; text-align: center; }
+    main { max-width: 960px; margin: 20px auto; background: #fff; padding: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); border-radius: 8px; }
+    form { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; }
+    label { font-weight: 600; }
+    input, textarea { width: 100%; padding: 10px; border: 1px solid #cfd6e4; border-radius: 6px; box-sizing: border-box; }
+    textarea { min-height: 96px; resize: vertical; }
+    .full-width { grid-column: 1 / -1; }
+    .actions { display: flex; justify-content: flex-end; grid-column: 1 / -1; }
+    button { background: #1f3c88; color: #fff; border: none; padding: 12px 24px; border-radius: 6px; cursor: pointer; font-size: 16px; }
+    button:hover { background: #162b63; }
+    .helper { color: #666; font-size: 13px; margin-top: 6px; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>授信报告生成器</h1>
+    <p>输入财务数据和定性信息，立即生成标准化授信报告模版。</p>
+  </header>
+  <main>
+    <form method="POST">
+      <div>
+        <label for="company_name">公司名称</label>
+        <input id="company_name" name="company_name" placeholder="例如：上海某某科技有限公司" required>
+      </div>
+      <div>
+        <label for="fiscal_year">财报年度/期</label>
+        <input id="fiscal_year" name="fiscal_year" placeholder="例如：2023年度" required>
+      </div>
+      <div>
+        <label for="revenue">营业收入</label>
+        <input id="revenue" name="revenue" type="number" step="0.01" placeholder="数字，单位：元">
+        <p class="helper">用于计算毛利率、净利率等指标</p>
+      </div>
+      <div>
+        <label for="gross_profit">毛利</label>
+        <input id="gross_profit" name="gross_profit" type="number" step="0.01" placeholder="数字，单位：元">
+      </div>
+      <div>
+        <label for="operating_income">营业利润</label>
+        <input id="operating_income" name="operating_income" type="number" step="0.01" placeholder="数字，单位：元">
+      </div>
+      <div>
+        <label for="net_income">净利润</label>
+        <input id="net_income" name="net_income" type="number" step="0.01" placeholder="数字，单位：元">
+      </div>
+      <div>
+        <label for="total_assets">总资产</label>
+        <input id="total_assets" name="total_assets" type="number" step="0.01" placeholder="数字，单位：元">
+      </div>
+      <div>
+        <label for="total_liabilities">总负债</label>
+        <input id="total_liabilities" name="total_liabilities" type="number" step="0.01" placeholder="数字，单位：元">
+      </div>
+      <div>
+        <label for="operating_cash_flow">经营性现金流</label>
+        <input id="operating_cash_flow" name="operating_cash_flow" type="number" step="0.01" placeholder="数字，单位：元">
+      </div>
+      <div class="full-width">
+        <label for="key_strengths">优势与亮点</label>
+        <textarea id="key_strengths" name="key_strengths" placeholder="市场地位、盈利能力、管理团队等描述"></textarea>
+      </div>
+      <div class="full-width">
+        <label for="key_risks">风险点</label>
+        <textarea id="key_risks" name="key_risks" placeholder="财务风险、行业周期、治理风险等"></textarea>
+      </div>
+      <div class="full-width">
+        <label for="recommendation">授信建议</label>
+        <textarea id="recommendation" name="recommendation" placeholder="授信额度、期限、担保建议等"></textarea>
+      </div>
+      <div class="actions">
+        <button type="submit">生成报告</button>
+      </div>
+    </form>
+  </main>
+</body>
+</html>

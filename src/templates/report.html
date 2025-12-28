@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ inputs.company_name }} 授信报告</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 0; background: #f6f8fb; color: #222; }
+    header { background: #1f3c88; color: #fff; padding: 20px; text-align: center; }
+    main { max-width: 960px; margin: 20px auto; background: #fff; padding: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); border-radius: 8px; }
+    h2 { color: #1f3c88; margin-top: 0; }
+    section { margin-bottom: 24px; }
+    ul { padding-left: 20px; }
+    .back { display: inline-block; margin-bottom: 12px; text-decoration: none; color: #1f3c88; }
+    .pill { background: #e8edff; color: #1f3c88; padding: 4px 10px; border-radius: 999px; font-size: 13px; margin-left: 6px; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 12px; }
+    .card { border: 1px solid #e5e9f2; border-radius: 8px; padding: 14px; background: #fafbff; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>{{ inputs.company_name }} 授信报告</h1>
+    <p>{{ inputs.fiscal_year }} | 自动生成的授信模版</p>
+  </header>
+  <main>
+    <a class="back" href="/">← 返回修改输入</a>
+
+    <section>
+      <h2>一、执行摘要</h2>
+      <p>{{ report.executive_summary }}</p>
+    </section>
+
+    <section>
+      <h2>二、财务概览</h2>
+      <div class="grid">
+        {% for item in report.financial_highlights %}
+        <div class="card">{{ item }}</div>
+        {% endfor %}
+      </div>
+    </section>
+
+    <section>
+      <h2>三、核心指标</h2>
+      <ul>
+        <li>毛利率 <span class="pill">{{ metrics.gross_margin | default('N/A') | float | round(4) if metrics.gross_margin is not none else 'N/A' }}</span></li>
+        <li>营业利润率 <span class="pill">{{ metrics.operating_margin | default('N/A') | float | round(4) if metrics.operating_margin is not none else 'N/A' }}</span></li>
+        <li>净利率 <span class="pill">{{ metrics.net_margin | default('N/A') | float | round(4) if metrics.net_margin is not none else 'N/A' }}</span></li>
+        <li>资产负债率 <span class="pill">{{ metrics.leverage | default('N/A') | float | round(4) if metrics.leverage is not none else 'N/A' }}</span></li>
+        <li>经营现金流/总负债 <span class="pill">{{ metrics.cash_flow_coverage | default('N/A') | float | round(4) if metrics.cash_flow_coverage is not none else 'N/A' }}</span></li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>四、优势与风险</h2>
+      <div class="grid">
+        <div class="card">
+          <strong>优势</strong>
+          <p>{{ report.qualitative.key_strengths }}</p>
+        </div>
+        <div class="card">
+          <strong>风险</strong>
+          <p>{{ report.qualitative.key_risks }}</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>五、授信建议</h2>
+      <p>{{ report.qualitative.recommendation }}</p>
+    </section>
+  </main>
+</body>
+</html>
